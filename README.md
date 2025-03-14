@@ -53,7 +53,7 @@ Exit Application – Terminate the program.*
 
 - Ensure proper input validation and error handling.
 
-## Constraints:
+### Constraints:
 
 - The maximum number of students stored in memory must be unlimited. [Hint: to use dynamic memory (de)allocation]
 
