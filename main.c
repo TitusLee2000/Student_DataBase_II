@@ -64,10 +64,24 @@ char incrementDatabase(StudentDatabase* studentDb)
 
 void addStudent(StudentDatabase* studentDb) {
     //prompt and retrieve user input
+	Student newStudent = {"A01234567", "Example Student", 22, "Computer Systems Technology", 4.0f, DOWNTOWN};
+	//validation
 
-    //validation
+    // Check capacity of database and increase size if needed
+	if (studentDb->count >= studentDb->size) {
+		// Attempt to increment the size of the database
+		incrementDatabase(studentDb);
 
-    //add to list
+		// Check whether size was actually increased enough
+		if (studentDb->count >= studentDb->size)
+		{
+			printf("ERROR: Database operation failed\n");
+			return;
+		}
+	}
+
+	const size_t index = studentDb->count++;
+	studentDb->database[index] = newStudent;
 }
 
 void DisplayStudent() {
