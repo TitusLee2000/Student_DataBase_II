@@ -144,8 +144,7 @@ void displayStudents(const StudentDatabase* studentDb) {
 		printStudent(&studentDb->database[i], padding);
 	}
 }
-
-struct Student searchStudent() {
+Student searchStudent() {
 
 }
 
