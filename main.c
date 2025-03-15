@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// The number of elements to increment or decrement the database by
+#define INC_SIZE 50
+
 /**
  * Enum of BCIT groups. Each group corresponds to a campus
  */
@@ -69,5 +72,13 @@ void sortStudent() {
 }
 
 int main() {
+	// Initialise the student database
+	StudentDatabase studentDatabase;
+	studentDatabase.database = malloc(INC_SIZE * sizeof(Student));
+	studentDatabase.size = INC_SIZE;
+	studentDatabase.count = 0;
 
+	// Free memory
+	free(studentDatabase.database);
+	return 0;
 }
