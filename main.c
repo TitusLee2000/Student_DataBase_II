@@ -1,6 +1,6 @@
-//
-// Created by titus on 2025-03-14.
-//
+// By Titus and David
+// BCIT 2025
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
