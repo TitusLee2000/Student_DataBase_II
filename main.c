@@ -5,14 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Student{
-  char name[100];
-  int id;
-  int age;
-  char program[50];
-  float gpa;
-  char group[50];
-};
 /**
  * Enum of BCIT groups. Each group corresponds to a campus
  */
@@ -20,6 +12,18 @@ typedef enum Group {
 	DOWNTOWN,
 	BURNABY
 } Group;
+
+/**
+ * Struct representing a student at BCIT
+ */
+typedef struct Student {
+	char name[256];		// Student's legal name
+	char id[10];		// Student's BCIT ID
+	int age;			// Student's age
+	char program[128];	// Student's program
+	float gpa;			// Student's grade point average
+	Group group;		// Student's group (campus)
+} Student;
 
 
 void addStudent() {
