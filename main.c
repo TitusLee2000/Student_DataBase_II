@@ -171,7 +171,11 @@ int main() {
 	studentDatabase.size = INC_SIZE;
 	studentDatabase.count = 0;
 
-	addStudent(&studentDatabase);
+	for (int i = 0; i < 51; ++i)
+	{
+		addStudent(&studentDatabase);
+	}
+	//addStudent(&studentDatabase);
 	displayStudents(&studentDatabase);
 
 	// Free memory
