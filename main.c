@@ -20,8 +20,8 @@ typedef enum Group {
  * Struct representing a student at BCIT
  */
 typedef struct Student {
-	char name[256];		// Student's legal name
 	char id[10];		// Student's BCIT ID
+	char name[256];		// Student's legal name
 	int age;			// Student's age
 	char program[128];	// Student's program
 	float gpa;			// Student's grade point average
