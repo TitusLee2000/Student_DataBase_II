@@ -89,6 +89,19 @@ void makePadding(const StudentDatabase* studentDb, int padding[], const size_t p
 	}
 }
 
+/**
+ * Prints a student's details.
+ *
+ * @param student the student to print
+ * @param padding details
+ */
+void printStudent(const Student* student, const int padding[])
+{
+	const char* groupName = (student->group == DOWNTOWN) ? "Downtown" : "Burnaby";
+	printf("| %-*s | %-*s | %-*d | %-*s | %-.2f | %-*s |\n", padding[0], student->id, padding[1], student->name, padding[2], student->age, padding[3], student->program, student->gpa, padding[5], groupName);
+}
+
+
 void addStudent(StudentDatabase* studentDb) {
     //prompt and retrieve user input
 	Student newStudent = {"A01234567", "Example Student", 22, "Computer Systems Technology", 4.0f, DOWNTOWN};
