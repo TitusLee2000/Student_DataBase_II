@@ -62,6 +62,33 @@ char incrementDatabase(StudentDatabase* studentDb)
 	else return 0;
 }
 
+/**
+ * Creates data for padding space when printing students
+ *
+ * @param studentDb the database
+ * @param padding array of padding data, modified in-place
+ * @param pSize size of array of padding data
+ */
+void makePadding(const StudentDatabase* studentDb, int padding[], const size_t pSize)
+{
+	for (size_t i = 0; i < studentDb->size; i++)
+	{
+		const Student* student = &studentDb->database[i];
+		if (strlen(student->id) > padding[0]) {padding[0] = strlen(student->id);}
+		if (strlen(student->name) > padding[1]) {padding[1] = strlen(student->name);}
+		if (strlen(student->program) > padding[3]) {padding[3] = strlen(student->program);}
+	}
+	padding[5] = strlen("Downtown");	// GROUP padding
+	padding[2] = 2;							// Age padding
+	padding[4] = 3;
+
+	// Minimum of 1 space of padding
+	for (size_t i = 0; i < pSize; i++)
+	{
+		padding[i]++;
+	}
+}
+
 void addStudent(StudentDatabase* studentDb) {
     //prompt and retrieve user input
 	Student newStudent = {"A01234567", "Example Student", 22, "Computer Systems Technology", 4.0f, DOWNTOWN};
