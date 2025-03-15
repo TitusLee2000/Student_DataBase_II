@@ -48,10 +48,6 @@ void sortStudent() {
 
 }
 
-void exit() {
-
-}
-
 int main() {
 
 }
