@@ -25,6 +25,15 @@ typedef struct Student {
 	Group group;		// Student's group (campus)
 } Student;
 
+/**
+ * Struct representing a database of students
+ */
+typedef struct StudentDatabase
+{
+	Student* database;				// Array of students
+	size_t size;					// Current max capacity of database
+	size_t count;					// Current number of students in database
+} StudentDatabase;
 
 void addStudent() {
     //prompt and retrieve user input
