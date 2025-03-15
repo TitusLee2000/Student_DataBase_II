@@ -38,7 +38,31 @@ typedef struct StudentDatabase
 	size_t count;					// Current number of students in database
 } StudentDatabase;
 
-void addStudent() {
+/**
+ * Attempts to increment the size of a student database
+ *
+ * @param studentDb the student database to be incremented
+ * @return 1 if successful, 0 otherwise
+ */
+char incrementDatabase(StudentDatabase* studentDb)
+{
+	// Create copy of database with greater size
+	const size_t newSize = studentDb->size + INC_SIZE;
+	Student* newDb = realloc(studentDb, sizeof(Student) * newSize);
+
+	// Reallocation might fail, so we test to make sure newDb is valid
+	if (newDb != NULL)
+	{
+		free(studentDb->database);
+		studentDb->database = newDb;
+		studentDb->size = newSize;
+		return 1;
+	}
+	// Return false if reallocation failed
+	else return 0;
+}
+
+void addStudent(StudentDatabase* studentDb) {
     //prompt and retrieve user input
 
     //validation
