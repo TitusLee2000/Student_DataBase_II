@@ -172,6 +172,9 @@ int main() {
 	studentDatabase.size = INC_SIZE;
 	studentDatabase.count = 0;
 
+	addStudent(&studentDatabase);
+	displayStudents(&studentDatabase);
+
 	// Free memory
 	free(studentDatabase.database);
 	return 0;
