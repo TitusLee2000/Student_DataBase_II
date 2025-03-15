@@ -1,3 +1,0 @@
-C:/Users/titus/CLionProjects/Student-DataBase-II/cmake-build-debug/CMakeFiles/Student_DataBase_II.dir
-C:/Users/titus/CLionProjects/Student-DataBase-II/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/titus/CLionProjects/Student-DataBase-II/cmake-build-debug/CMakeFiles/rebuild_cache.dir
