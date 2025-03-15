@@ -27,7 +27,7 @@ void DisplayStudent() {
 
 }
 
-Student searchStudent() {
+struct Student searchStudent() {
 
 }
 
