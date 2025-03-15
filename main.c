@@ -48,12 +48,11 @@ char incrementDatabase(StudentDatabase* studentDb)
 {
 	// Create copy of database with greater size
 	const size_t newSize = studentDb->size + INC_SIZE;
-	Student* newDb = realloc(studentDb, sizeof(Student) * newSize);
+	Student* newDb = realloc(studentDb->database, sizeof(Student) * newSize);
 
 	// Reallocation might fail, so we test to make sure newDb is valid
 	if (newDb != NULL)
 	{
-		free(studentDb->database);
 		studentDb->database = newDb;
 		studentDb->size = newSize;
 		return 1;
