@@ -13,6 +13,13 @@ struct Student{
   float gpa;
   char group[50];
 };
+/**
+ * Enum of BCIT groups. Each group corresponds to a campus
+ */
+typedef enum Group {
+	DOWNTOWN,
+	BURNABY
+} Group;
 
 
 void addStudent() {
