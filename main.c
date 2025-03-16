@@ -248,12 +248,32 @@ void deleteStudent(StudentDatabase* studentDb) {
 void ListGroupMembers() {
 
 }
-//helper
-void sortbyID() {}
-void sortbyName() {}
-void sortbyGPA() {}
-//ascending
-//decending
+
+//Comparator functions
+
+int compareID(void* a, void* b) {
+	Student* studentA = (Student*) a;
+	Student* studentB = (Student*) b;
+	return strcmp(studentA->id, studentB->id);
+}
+
+int compareName(void* a, void* b)
+{
+	Student* studentA = (Student*) a;
+	Student* studentB = (Student*) b;
+
+	return strcmp(studentA->name, studentB->name);
+}
+int compareGPA(void* a, void* b)
+{
+	Student* studentA = (Student*) a;
+	Student* studentB = (Student*) b;
+
+	if (studentA->gpa > studentB->gpa) {return 1;}
+	if (studentA->gpa < studentB->gpa) {return -1;}
+	return 0;
+}
+
 void sortStudent() {
 
 }
