@@ -158,12 +158,18 @@ void addStudent(StudentDatabase* studentDb) {
  * @param studentDb the student database to print from
  */
 void displayStudents(const StudentDatabase* studentDb) {
+	if (studentDb->count < 1)
+	{
+		printf("No students to display\n");
+		return;
+	}
+
 	// Create padding info
-	int padding[10];
+	int padding[10] = {0};
 	makePadding(studentDb, padding, 10);
 
 	// Print table labels
-	printf("| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "ID", padding[1], "NAME", padding[2], "AGE", padding[3], "PROGRAM", padding[4], "GPA", padding[5], "GROUP");
+	printf("\n| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "ID", padding[1], "NAME", padding[2], "AGE", padding[3], "PROGRAM", padding[4], "GPA", padding[5], "GROUP");
 	printf("| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "", padding[1], "", padding[2], "", padding[3], "", padding[4], "", padding[5], "");
 
 	// Print each student
@@ -171,6 +177,7 @@ void displayStudents(const StudentDatabase* studentDb) {
 	{
 		printStudent(&studentDb->database[i], padding);
 	}
+	printf("\n");
 }
 Student searchStudent() {
 
