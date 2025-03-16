@@ -179,8 +179,29 @@ void displayStudents(const StudentDatabase* studentDb) {
 	}
 	printf("\n");
 }
-Student searchStudent() {
 
+/**
+ * Prints a student's records if they exist in the database
+ *
+ * @param studentDb the database to search
+ */
+void searchStudent(StudentDatabase* studentDb) {
+	// Get id from user input
+	const char targetId[10] = "A01234567";
+
+	for (size_t i = 0; i < studentDb->count; i++)
+	{
+		if (!strcmp(studentDb->database[i].id, targetId))
+		{
+			int padding[10] = {0};
+			makePadding(studentDb, padding, 10);
+			printStudent(&studentDb->database[i], padding);
+
+			return;
+		}
+	}
+
+	printf("Student with ID %s not found\n", targetId);
 }
 
 void deleteStudent() {
