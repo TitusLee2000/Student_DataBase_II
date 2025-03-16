@@ -99,7 +99,7 @@ char decrementDatabase(StudentDatabase* studentDb)
  */
 void makePadding(const StudentDatabase* studentDb, int padding[], const size_t pSize)
 {
-	for (size_t i = 0; i < studentDb->size; i++)
+	for (size_t i = 0; i < studentDb->count; i++)
 	{
 		const Student* student = &studentDb->database[i];
 		if (strlen(student->id) > padding[0]) {padding[0] = strlen(student->id);}
