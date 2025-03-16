@@ -204,8 +204,45 @@ void searchStudent(StudentDatabase* studentDb) {
 	printf("Student with ID %s not found\n", targetId);
 }
 
-void deleteStudent() {
+void deleteStudent(StudentDatabase* studentDb) {
+	// Get id from user input
+	const char targetId[] = "A01234567";
 
+	Student* targetStudent = NULL;
+	size_t index = 0;
+
+	// Iterate over all students to find the target ID
+	for (size_t i = 0; i < studentDb->count; i++)
+	{
+		if (!strcmp(studentDb->database[i].id, targetId))
+		{
+			targetStudent = &studentDb->database[i];
+			index = i;
+			break;
+		}
+	}
+
+	// Return if no student found
+	if (targetStudent == NULL)
+	{
+		printf("No student with ID '%s' in found\n", targetId);
+		return;
+	}
+
+	// Shift the database down
+	for (size_t i = index; i < studentDb->count - 1; i++)
+	{
+		studentDb->database[i] = studentDb->database[i + 1];
+	}
+	studentDb->count -= 1;
+
+	// If database can be shrunk, shrink it
+	if (studentDb->count < (studentDb->size - INC_SIZE))
+	{
+		decrementDatabase(studentDb);
+	}
+
+	printf("Student with ID %s deleted from database\n", targetId);
 }
 
 void ListGroupMembers() {
