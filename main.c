@@ -132,7 +132,7 @@ void printStudent(const Student* student, const int padding[])
 
 void addStudent(StudentDatabase* studentDb) {
     //prompt and retrieve user input
-	Student newStudent = {"A01234567", "Example Student", 22, "Computer Systems Technology", 4.0f, DOWNTOWN};
+	Student newStudent = {"A01234567", "Example Student", 22, "CST", 3.333, DOWNTOWN};
 	//validation
 
     // Check capacity of database and increase size if needed
@@ -265,12 +265,16 @@ int main() {
 	studentDatabase.size = INC_SIZE;
 	studentDatabase.count = 0;
 
-	for (int i = 0; i < 51; ++i)
-	{
-		addStudent(&studentDatabase);
-	}
-	//addStudent(&studentDatabase);
+	// Demo
 	displayStudents(&studentDatabase);
+
+	addStudent(&studentDatabase);
+	displayStudents(&studentDatabase);
+	searchStudent(&studentDatabase);
+
+	deleteStudent(&studentDatabase);
+	displayStudents(&studentDatabase);
+	searchStudent(&studentDatabase);
 
 	// Free memory
 	free(studentDatabase.database);
