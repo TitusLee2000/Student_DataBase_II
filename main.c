@@ -62,6 +62,35 @@ char incrementDatabase(StudentDatabase* studentDb)
 }
 
 /**
+ * Attempts to decrement the size of a student database. Database size will never be decreased below INC_SIZE
+ *
+ * @param studentDb the student database to be decremented
+ * @return 1 if successful, 0 otherwise
+ */
+char decrementDatabase(StudentDatabase* studentDb)
+{
+	// Don't decrement the database if it is already small
+	if (studentDb->size <= INC_SIZE)
+	{
+		return 0;
+	}
+
+	// Create copy of database with smaller size
+	const size_t newSize = studentDb->size - INC_SIZE;
+	Student* newDb = realloc(studentDb->database, sizeof(Student) * newSize);
+
+	// Make sure reallocation was successful
+	if (newDb != NULL)
+	{
+		studentDb->database = newDb;
+		studentDb->size = newSize;
+		return 1;
+	}
+	// Return false if reallocation failed
+	else return 0;
+}
+
+/**
  * Creates data for padding space when printing students
  *
  * @param studentDb the database
