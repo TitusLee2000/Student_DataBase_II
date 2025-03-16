@@ -9,7 +9,7 @@
 #define INC_SIZE 50
 
 /**
- * Enum of BCIT groups. Each group corresponds to a campus
+ * Enum of BCIT groups. Each group corresponds to a campus.
  */
 typedef enum Group {
 	DOWNTOWN,
@@ -17,7 +17,7 @@ typedef enum Group {
 } Group;
 
 /**
- * Struct representing a student at BCIT
+ * Struct representing a student at BCIT.
  */
 typedef struct Student {
 	char id[10];		// Student's BCIT ID
@@ -29,7 +29,7 @@ typedef struct Student {
 } Student;
 
 /**
- * Struct representing a database of students
+ * Struct representing a database of students.
  */
 typedef struct StudentDatabase
 {
@@ -39,7 +39,7 @@ typedef struct StudentDatabase
 } StudentDatabase;
 
 /**
- * Attempts to increment the size of a student database
+ * Attempts to increment the size of a student database.
  *
  * @param studentDb the student database to be incremented
  * @return 1 if successful, 0 otherwise
@@ -62,7 +62,7 @@ char incrementDatabase(StudentDatabase* studentDb)
 }
 
 /**
- * Attempts to decrement the size of a student database. Database size will never be decreased below INC_SIZE
+ * Attempts to decrement the size of a student database. Database size will never be decreased below INC_SIZE.
  *
  * @param studentDb the student database to be decremented
  * @return 1 if successful, 0 otherwise
@@ -91,7 +91,7 @@ char decrementDatabase(StudentDatabase* studentDb)
 }
 
 /**
- * Creates data for padding space when printing students
+ * Creates data for padding space when printing students.
  *
  * @param studentDb the database
  * @param padding array of padding data, modified in-place
@@ -130,6 +130,11 @@ void printStudent(const Student* student, const int padding[])
 }
 
 
+/**
+ * Add a student to the database.
+ *
+ * @param studentDb the database to add to
+ */
 void addStudent(StudentDatabase* studentDb) {
     //prompt and retrieve user input
 	Student newStudent = {"A01234567", "Example Student", 22, "CST", 3.333, DOWNTOWN};
@@ -181,7 +186,7 @@ void displayStudents(const StudentDatabase* studentDb) {
 }
 
 /**
- * Prints a student's records if they exist in the database
+ * Prints a student's records if they exist in the database.
  *
  * @param studentDb the database to search
  */
@@ -204,6 +209,11 @@ void searchStudent(StudentDatabase* studentDb) {
 	printf("Student with ID %s not found\n", targetId);
 }
 
+/**
+ * Deletes a student's entry in the database.
+ *
+ * @param studentDb the database to delete from
+ */
 void deleteStudent(StudentDatabase* studentDb) {
 	// Get id from user input
 	const char targetId[] = "A01234567";
