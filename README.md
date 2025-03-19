@@ -23,18 +23,18 @@ Exit – Close the application.
 Data persistence  – Command line argument for the file name to store data.
 ### Console Menu Items:
 
-**Add Student** – Prompt for name, ID, age, program, GPA, and group (BBY or DTC), then store the record.
+- [ ] **Add Student** – Prompt for name, ID, age, program, GPA, and group (BBY or DTC), then store the record.
 
-**Display All Students** – Show all student records, categorized by Group BBY and Group DTC.
+- [ ] **Display All Students** – Show all student records, categorized by Group BBY and Group DTC.
 
-**Search Student by ID** – Prompt for student ID, search the records, and display details if found.
+- [ ] **Search Student by ID** – Prompt for student ID, search the records, and display details if found.
 
-**Delete Student by ID** – Prompt for student ID, search, and remove the record if found.
+- [ ] **Delete Student by ID** – Prompt for student ID, search, and remove the record if found.
 
-**List Students by Group** – Prompt for group (B - BBY or D - DTC) and display all students in that group.
+- [ ] **List Students by Group** – Prompt for group (B - BBY or D - DTC) and display all students in that group.
 
-**Sort Students** – Sort all student records by user's choice of key and order.
-Provide a submenu for:
+- [ ] **Sort Students** – Sort all student records by user's choice of key and order.
+  Provide a submenu for:
 
 - selecting the sorting key: ID, name, or GPA.
 - selecting the sorting order: ascending or descending.
@@ -44,14 +44,13 @@ The sorted order will NOT persist after the program is restarted.
 Exit Application – Terminate the program.*
 
 ### Technical Requirements:
+- [ ] Implement using the C programming language.
 
-- Implement using the C programming language.
+- [ ] Use struct and arrays to store student information for both groups.
 
-- Use struct and arrays to store student information for both groups.
+- [ ] Provide a simple menu-driven interface using printf and scanf.
 
-- Provide a simple menu-driven interface using printf and scanf.
-
-- Ensure proper input validation and error handling.
+- [ ] Ensure proper input validation and error handling.
 
 ### Constraints:
 
