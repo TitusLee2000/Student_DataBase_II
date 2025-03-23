@@ -6,7 +6,7 @@
 #include <string.h>
 
 // The number of elements to increment or decrement the database by
-#define INC_SIZE 50
+#define INCREASE_SIZE 50
 
 /**
  * Enum of BCIT groups. Each group corresponds to a campus.
@@ -47,7 +47,7 @@ typedef struct StudentDatabase
 char incrementDatabase(StudentDatabase* studentDb)
 {
 	// Create copy of database with greater size
-	const size_t newSize = studentDb->size + INC_SIZE;
+	const size_t newSize = studentDb->size + INCREASE_SIZE;
 	Student* newDb = realloc(studentDb->database, sizeof(Student) * newSize);
 
 	// Reallocation might fail, so we test to make sure newDb is valid
@@ -62,7 +62,7 @@ char incrementDatabase(StudentDatabase* studentDb)
 }
 
 /**
- * Attempts to decrement the size of a student database. Database size will never be decreased below INC_SIZE.
+ * Attempts to decrement the size of a student database. Database size will never be decreased below INCREASE_SIZE.
  *
  * @param studentDb the student database to be decremented
  * @return 1 if successful, 0 otherwise
@@ -70,13 +70,13 @@ char incrementDatabase(StudentDatabase* studentDb)
 char decrementDatabase(StudentDatabase* studentDb)
 {
 	// Don't decrement the database if it is already small
-	if (studentDb->size <= INC_SIZE)
+	if (studentDb->size <= INCREASE_SIZE)
 	{
 		return 0;
 	}
 
 	// Create copy of database with smaller size
-	const size_t newSize = studentDb->size - INC_SIZE;
+	const size_t newSize = studentDb->size - INCREASE_SIZE;
 	Student* newDb = realloc(studentDb->database, sizeof(Student) * newSize);
 
 	// Make sure reallocation was successful
@@ -129,7 +129,31 @@ void printStudent(const Student* student, const int padding[])
 	printf("| %-*s | %-*s | %-*d | %-*s | %-.2f | %-*s |\n", padding[0], student->id, padding[1], student->name, padding[2], student->age, padding[3], student->program, student->gpa, padding[5], groupName);
 }
 
-
+/**
+ * Create a unique student number
+ *
+ * @param currentNumber an int pointer of the newest made student number without leading zero's
+ * @return a char pointer to a new student number or NULL if over 99999999
+ */
+char* generateStudentNumber(const int* currentNumber) {
+	// Over the limit
+	if (*currentNumber > 99999999) {
+		return NULL;
+	}
+	const int studentIDLength = 9;				// change if you want to go over 9 digit
+	const int width = studentIDLength - 1;
+	char* newNumber = (char*)malloc(studentIDLength);
+	int count = 0;
+	char strStudentNumber[studentIDLength];
+	sprintf(strStudentNumber, "%d", *currentNumber+1);	// ending with student number
+	strcat(newNumber, "A");				// starting with 'A'
+	while (width-strlen(strStudentNumber) > count) {
+		strcat(newNumber, "0");			// 0 as fillers
+		count++;
+	}
+	strcat(newNumber, strStudentNumber);
+	return newNumber;
+}
 /**
  * Add a student to the database.
  *
@@ -247,7 +271,7 @@ void deleteStudent(StudentDatabase* studentDb) {
 	studentDb->count -= 1;
 
 	// If database can be shrunk, shrink it
-	if (studentDb->count < (studentDb->size - INC_SIZE))
+	if (studentDb->count < (studentDb->size - INCREASE_SIZE))
 	{
 		decrementDatabase(studentDb);
 	}
@@ -291,8 +315,8 @@ void sortStudent() {
 int main() {
 	// Initialise the student database
 	StudentDatabase studentDatabase;
-	studentDatabase.database = malloc(INC_SIZE * sizeof(Student));
-	studentDatabase.size = INC_SIZE;
+	studentDatabase.database = malloc(INCREASE_SIZE * sizeof(Student));
+	studentDatabase.size = INCREASE_SIZE;
 	studentDatabase.count = 0;
 
 	// Demo
