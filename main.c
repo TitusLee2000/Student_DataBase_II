@@ -160,9 +160,81 @@ char* generateStudentNumber(const int* currentNumber) {
  * @param studentDb the database to add to
  */
 void addStudent(StudentDatabase* studentDb) {
-    //prompt and retrieve user input
 	Student newStudent = {"A01234567", "Example Student", 22, "CST", 3.333, DOWNTOWN};
-	//validation
+
+    //prompt and retrieve user input
+
+	//=========================
+	//       VALIDATION
+	//=========================
+
+	// validate ID
+	char userInput[20]; // for all inputs
+
+	int validID = 1;
+	while (validID) {
+		printf("Student ID must be in the format of A12345678");
+		printf("Enter Student ID: ");
+		scanf("%s", &userInput);
+
+		char strNumber[8];
+		strncpy(strNumber, userInput + 1, 8); // substring [1-8]
+		char* end;
+		int number = strtol(strNumber, &end, 10); // convert str to int | Needed to enter to DB
+		if (userInput[0] != 'A') {
+			printf("Invalid student ID: Must begin with A");
+			continue;
+		}
+		if (strlen(userInput) != 9) {
+			printf("Invalid student ID: Must be length 9");
+			continue;
+		}
+		if (end != NULL) {
+			printf("Invalid student ID: Student ID must only be numerical after A");
+			continue;
+		}
+		validID = 0;
+	};
+	// validate name
+	int validName = 1;
+	while (validName) {
+		printf("Enter Student Name: ");
+		scanf("%s", &userInput);
+		//Validation code {...}
+		validName = 0;
+	}
+	// validate age
+	int validAge = 1;
+	while (validAge) {
+		printf("Enter Student Age: ");
+		scanf("%s", &userInput);
+		//Validation code {...}
+		validAge = 0;
+	}
+	// validate program
+	int validProgram = 1;
+	while (validProgram) {
+		printf("Enter Student Program: ");
+		scanf("%s", &userInput);
+		//Validation code {...}
+		validProgram = 0;
+	}
+	// validate GPA
+	int validGPA = 1;
+	while (validGPA) {
+		printf("Enter Student GPA: ");
+		scanf("%s", &userInput);
+		//Validation code {...}
+		validGPA = 0;
+	}
+	// validate Group
+	int validGroup = 1;
+	while (validGroup) {
+		printf("Enter Student Group: ");
+		scanf("%s", &userInput);
+		//Validation code {...}
+		validGroup = 0;
+	}
 
     // Check capacity of database and increase size if needed
 	if (studentDb->count >= studentDb->size) {
