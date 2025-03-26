@@ -135,16 +135,12 @@ void printStudent(const Student* student, const int padding[])
  * @param studentDb the database to add to
  */
 void addStudent(StudentDatabase* studentDb) {
-	Student newStudent = {"A01234567", "Example Student", 22, "CST", 3.333, DOWNTOWN};
-
-    //prompt and retrieve user input
-
-	//=========================
-	//       VALIDATION
-	//=========================
+	//=====================================
+	//        PROMPT AND VALIDATE
+	//=====================================
 
 	char userInput[255];		// for all inputs
-	char studentID [10];		// Student's ID
+	char studentID [10] = "A0";		// Student's ID
 	char studentName [255];		// Student's name
 	int studentAge;				// Student's age
 	char studentProgram[128];	// Student's program
@@ -186,8 +182,8 @@ void addStudent(StudentDatabase* studentDb) {
 		}
 		validID = 0;
 		// If everything passes
-		strcpy(studentID, "A0");
-		strcpy(studentID, userInput); 
+		strcat(studentID, userInput);
+		printf("%s\n", studentID);
 	};
 	// validate name
 	int validName = 1;
@@ -303,6 +299,17 @@ void addStudent(StudentDatabase* studentDb) {
 		}
 		validGroup = 0;
 	}
+	// Create a new student after passing all validations
+	Student newStudent = {studentID, studentName, studentAge,
+		studentProgram, studentGpa, studentGroup};
+
+	// DEBUGGING PRINTS [DELETE AFTER]
+	printf("%s\n", newStudent.id);
+	printf("%s\n", newStudent.name);
+	printf("%d\n", newStudent.age);
+	printf("%s\n", newStudent.program);
+	printf("%f\n", newStudent.gpa);
+	printf("%p\n", &newStudent.group);
 
     // Check capacity of database and increase size if needed
 	if (studentDb->count >= studentDb->size) {
