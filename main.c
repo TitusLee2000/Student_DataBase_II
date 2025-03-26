@@ -154,17 +154,17 @@ void addStudent(StudentDatabase* studentDb) {
 	int validID = 1;
 	// validate ID
 	while (validID) {
-		printf("Enter Student ID by number [7 digits]: ");
+		printf("Enter Student ID by number [7 digits]:\n");
 		scanf("%s", &userInput);
 
 		char* stringPtr; //String portion of the input
 		strtol(userInput, &stringPtr, 10);
-		if (strlen(userInput) != 7) {
-			printf("Invalid student ID: Must be length 7");
+		if (*stringPtr != '\0') {
+			printf("Invalid student ID: ID must be numerical\n");
 			continue;
 		}
-		if (*stringPtr != '\0') {
-			printf("Invalid student ID: ID must be numerical");
+		if (strlen(userInput) != 7) {
+			printf("Invalid student ID: Must be length 7\n");
 			continue;
 		}
 		//check uniqueness
@@ -176,7 +176,7 @@ void addStudent(StudentDatabase* studentDb) {
 			strcpy(tempUserID, userInput);
 			if (!strcmp(studentDb->database[i].id, tempUserID))
 			{
-				printf("Invalid student ID: student ID already exist");
+				printf("Invalid student ID: student ID already exist\n");
 				flag = 1;
 				break;
 			}
@@ -192,18 +192,18 @@ void addStudent(StudentDatabase* studentDb) {
 	// validate name
 	int validName = 1;
 	while (validName) {
-		printf("Enter Student Name: ");
+		printf("Enter Student Name:\n");
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
 		strtol(userInput, &stringPtr, 10);
-		if (strlen(userInput) < 20 || strlen(userInput) == 0) { //out of bound
-			printf("Invalid student Name: length must be less than 20");
+		if (strlen(userInput) > 255 || strlen(userInput) == 0) { //out of bound
+			printf("Invalid student Name: length must be less than 256\n");
 			continue;
 		}
 		int flag = 0;
 		for (int i = 0; userInput[i] != '\0'; i++) {
 			if (!isalpha(userInput[i])) {
-				printf("Invalid student Name: Name must only contain alphabetical characters");
+				printf("Invalid student Name: Name must only contain alphabetical characters\n");
 				flag = 1;
 				break;
 			}
@@ -212,7 +212,7 @@ void addStudent(StudentDatabase* studentDb) {
 			continue;
 		}
 		if (*stringPtr == '\0') {
-			printf("Invalid student Name: Name must only contain alphabetical characters");
+			printf("Invalid student Name: Name must only contain alphabetical characters\n");
 		}
 		validName = 0;
 		strcpy(studentName, userInput);
@@ -220,16 +220,16 @@ void addStudent(StudentDatabase* studentDb) {
 	// validate age
 	int validAge = 1;
 	while (validAge) {
-		printf("Enter Student Age: ");
+		printf("Enter Student Age:\n");
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
 		int number = strtol(userInput, &stringPtr, 10);
 		if (*stringPtr != '\0') {
-			printf("Invalid student Age: Age must be numeric");
+			printf("Invalid student Age: Age must be numeric\n");
 			continue;
 		}
 		if (number < 18) {
-			printf("Invalid student Age: Age must be greater than 18");
+			printf("Invalid student Age: Age must be greater than 18\n");
 			continue;
 		}
 		validAge = 0;
@@ -238,12 +238,13 @@ void addStudent(StudentDatabase* studentDb) {
 	// validate program
 	int validProgram = 1;
 	while (validProgram) {
-		printf("Enter Student Program: ");
+		printf("Enter Student Program:\n");
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
 		strtol(userInput, &stringPtr, 10);
 		if (*stringPtr == '\0') { // check for null and alphabetic character
-			printf("Invalid student Program: Program can only contain alphabetical characters");
+			printf("Invalid student Program: Program can only contain alphabetical characters\n");
+			continue;
 		}
 		validProgram = 0;
 		strcpy(studentProgram, userInput);
@@ -251,16 +252,17 @@ void addStudent(StudentDatabase* studentDb) {
 	// validate GPA
 	int validGPA = 1;
 	while (validGPA) {
-		printf("Enter Student GPA between [0.0 - 5.0]: ");
+		printf("Enter Student GPA between [0.0 - 5.0]:\n");
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
 		double gpaValue = strtod(userInput, &stringPtr);
 		if (*stringPtr != '\0') { // has other characters than alphabet
-			printf("Invalid student GPA: GPA must be a double");
+			printf("Invalid student GPA: GPA must be a double\n");
 			continue;
 		}
 		if (gpaValue <= 0.0 || gpaValue >= 5.0) {
-			printf("Invalid student GPA: GPA range must be 0.0 to 5.0");
+			printf("Invalid student GPA: GPA range must be 0.0 to 5.0\n");
+			continue;
 		}
 		validGPA = 0;
 		studentGpa = gpaValue;
@@ -269,19 +271,19 @@ void addStudent(StudentDatabase* studentDb) {
 	int validGroup = 1;
 	while (validGroup) {
         printf("[D]-Downtown [B]-Burnaby\n");
-		printf("Enter Student Group ['D', 'B']: ");
+		printf("Enter Student Group ['D', 'B']:\n");
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
 		int number = strtol(userInput, &stringPtr, 10);
 		if (stringPtr == '\0') { // empty or has other characters than alphabet
-			printf("Invalid student Group: Group must be 'D' or 'B'");
+			printf("Invalid student Group: Group must be 'D' or 'B'\n");
 		}
 		if (toupper(*stringPtr) == 'D') {
 			studentGroup = DOWNTOWN;
 		} else if (toupper(*stringPtr) != 'B') {
 			studentGroup = BURNABY;
 		} else {
-			printf("Invalid student Group: Group must be 'D' or 'B'");
+			printf("Invalid student Group: Group must be 'D' or 'B'\n");
 		}
 		validGroup = 0;
 	}
