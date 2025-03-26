@@ -242,8 +242,15 @@ void addStudent(StudentDatabase* studentDb) {
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
 		strtol(userInput, &stringPtr, 10);
-		if (*stringPtr == '\0') { // check for null and alphabetic character
-			printf("Invalid student Program: Program can only contain alphabetical characters\n");
+		int flag = 0;
+		for (int i = 0; i < strlen(userInput); i++) {
+			if (!isalpha(userInput[i])) {
+				printf("Invalid student Program: Program can only contain alphabetical characters\n");
+				flag = 1;
+				break;
+			}
+		}
+		if (flag) { // the program contained anything other than alphabetical characters
 			continue;
 		}
 		validProgram = 0;
@@ -261,7 +268,7 @@ void addStudent(StudentDatabase* studentDb) {
 			continue;
 		}
 		if (gpaValue <= 0.0 || gpaValue >= 5.0) {
-			printf("Invalid student GPA: GPA range must be 0.0 to 5.0\n");
+			printf("Invalid student GPA: GPA range must be be between 0.0 to 5.0\n");
 			continue;
 		}
 		validGPA = 0;
@@ -274,9 +281,17 @@ void addStudent(StudentDatabase* studentDb) {
 		printf("Enter Student Group ['D', 'B']:\n");
 		scanf("%s", &userInput);
 		char* stringPtr; //String portion of the input
-		int number = strtol(userInput, &stringPtr, 10);
-		if (stringPtr == '\0') { // empty or has other characters than alphabet
-			printf("Invalid student Group: Group must be 'D' or 'B'\n");
+		strtol(userInput, &stringPtr, 10);
+		int flag = 0;
+		for (int i = 0; i < strlen(userInput); i++) {
+			if (!isalpha(userInput[i])) {
+				printf("Invalid student Program: Program can only contain alphabetical characters\n");
+				flag = 1;
+				break;
+			}
+		}
+		if (flag) { // the program contained anything other than alphabetical characters
+			continue;
 		}
 		if (toupper(*stringPtr) == 'D') {
 			studentGroup = DOWNTOWN;
@@ -284,6 +299,7 @@ void addStudent(StudentDatabase* studentDb) {
 			studentGroup = BURNABY;
 		} else {
 			printf("Invalid student Group: Group must be 'D' or 'B'\n");
+			continue;
 		}
 		validGroup = 0;
 	}
