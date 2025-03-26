@@ -295,7 +295,7 @@ void addStudent(StudentDatabase* studentDb) {
 		}
 		if (toupper(*stringPtr) == 'D') {
 			studentGroup = DOWNTOWN;
-		} else if (toupper(*stringPtr) != 'B') {
+		} else if (toupper(*stringPtr) == 'B') {
 			studentGroup = BURNABY;
 		} else {
 			printf("Invalid student Group: Group must be 'D' or 'B'\n");
