@@ -128,32 +128,6 @@ void printStudent(const Student* student, const int padding[])
 	const char* groupName = (student->group == DOWNTOWN) ? "Downtown" : "Burnaby";
 	printf("| %-*s | %-*s | %-*d | %-*s | %-.2f | %-*s |\n", padding[0], student->id, padding[1], student->name, padding[2], student->age, padding[3], student->program, student->gpa, padding[5], groupName);
 }
-
-/**
- * Create a unique student number
- *
- * @param currentNumber an int pointer of the newest made student number without leading zero's
- * @return a char pointer to a new student number or NULL if over 99999999
- */
-char* generateStudentNumber(const int* currentNumber) {
-	// Over the limit
-	if (*currentNumber > 99999999) {
-		return NULL;
-	}
-	const int studentIDLength = 9;				// change if you want to go over 9 digit
-	const int width = studentIDLength - 1;
-	char* newNumber = (char*)malloc(studentIDLength);
-	int count = 0;
-	char strStudentNumber[studentIDLength];
-	sprintf(strStudentNumber, "%d", *currentNumber+1);	// ending with student number
-	strcat(newNumber, "A");				// starting with 'A'
-	while (width-strlen(strStudentNumber) > count) {
-		strcat(newNumber, "0");			// 0 as fillers
-		count++;
-	}
-	strcat(newNumber, strStudentNumber);
-	return newNumber;
-}
 /**
  * Add a student to the database.
  *
@@ -173,7 +147,7 @@ void addStudent(StudentDatabase* studentDb) {
 
 	int validID = 1;
 	while (validID) {
-		printf("Student ID must be in the format of A12345678");
+		printf("Student ID must be in the format of A0134567");
 		printf("Enter Student ID: ");
 		scanf("%s", &userInput);
 
@@ -190,9 +164,10 @@ void addStudent(StudentDatabase* studentDb) {
 			continue;
 		}
 		if (end != NULL) {
-			printf("Invalid student ID: Student ID must only be numerical after A");
+			printf("Invalid student ID: Student ID must only be numerical");
 			continue;
 		}
+		//check uniqueness
 		validID = 0;
 	};
 	// validate name
