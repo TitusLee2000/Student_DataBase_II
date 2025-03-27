@@ -509,7 +509,7 @@ void sortStudent() {
 int main() {
 	// Initialise the student database
 	StudentDatabase studentDatabase;
-	studentDatabase.database = malloc(INCREASE_SIZE * sizeof(Student));
+	studentDatabase.database = calloc(INCREASE_SIZE, sizeof(Student));
 	studentDatabase.size = INCREASE_SIZE;
 	studentDatabase.count = 0;
 
