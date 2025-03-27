@@ -180,7 +180,7 @@ void addStudent(StudentDatabase* studentDb) {
 	//=====================================
 
 	char userInput[255];		// for all inputs
-	char studentID [10] = "A0";		// Student's ID
+	char studentID [10] = "A0";	// Student's ID
 	char studentName [256];		// Student's name
 	int studentAge;				// Student's age
 	char studentProgram[128];	// Student's program
@@ -339,6 +339,22 @@ void addStudent(StudentDatabase* studentDb) {
 		}
 		validGroup = 0;
 	}
+
+    // Check capacity of database and increase size if needed
+	if (studentDb->count >= studentDb->size) {
+		// Attempt to increment the size of the database
+		incrementDatabase(studentDb);
+
+		// Check whether size was actually increased enough
+		if (studentDb->count >= studentDb->size)
+		{
+			printf("ERROR: Database operation failed\n");
+			return;
+		}
+	}
+
+	const size_t index = studentDb->count++;
+
 	// Create a new student after passing all validations
 	// Student newStudent; = {{studentID}, {studentName}, studentAge,
 	// 	{studentProgram}, studentGpa, studentGroup};'
@@ -358,20 +374,6 @@ void addStudent(StudentDatabase* studentDb) {
 	printf("%f\n", newStudent.gpa);
 	printf("%p\n", &newStudent.group);
 
-    // Check capacity of database and increase size if needed
-	if (studentDb->count >= studentDb->size) {
-		// Attempt to increment the size of the database
-		incrementDatabase(studentDb);
-
-		// Check whether size was actually increased enough
-		if (studentDb->count >= studentDb->size)
-		{
-			printf("ERROR: Database operation failed\n");
-			return;
-		}
-	}
-
-	const size_t index = studentDb->count++;
 	studentDb->database[index] = newStudent;
 }
 
