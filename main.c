@@ -566,6 +566,44 @@ void sortStudent(StudentDatabase* studentDb) {
 	printf("Sorting finished.\n");
 }
 
+void listStudents(StudentDatabase* studentDb) {
+	Group studentGroup;
+
+	char validInput = 0;
+	while (!validInput) {
+		char input[256];
+		printf("Please enter the group to select ('B' or 'D'): ");
+		scanf("%s", input);
+		if (strcmp(input, "B") == 0 || strcmp(input, "b") == 0) {
+			studentGroup = BURNABY;
+			printf("\nBurnaby:\n");
+			validInput = 1;
+		} else if (strcmp(input, "D") == 0 || strcmp(input, "d") == 0) {
+			studentGroup = DOWNTOWN;
+			printf("\nDowntown:\n");
+			validInput = 1;
+		} else {
+			printf("\nInvalid input.\n");
+		}
+	}
+
+	// Create padding info
+	int padding[10] = {0};
+	makePadding(studentDb, padding, 10);
+
+	char num = 0;
+	for (int i = 0; i < studentDb->count; i++) {
+		Student* student = &studentDb->database[i];
+		if (student->group == studentGroup) {
+			printStudent(student, padding);
+			++num;
+		}
+	}
+	if (num == 0) {
+		printf("No students to display\n");
+	}
+}
+
 int main() {
 	// Initialise the student database
 	StudentDatabase studentDatabase;
@@ -635,7 +673,7 @@ int main() {
 			printf ("Valid commands:\n");
 			printf ("add, display, search, delete, list, sort, save, load, details, exit\n");
 		} else if (strcmp(input, "list") == 0) {
-			printf("List is not yet implemented!\n");
+			listStudents(&studentDatabase);
 		} else if (strcmp(input, "sort") == 0) {
 			sortStudent(&studentDatabase);
 		}
