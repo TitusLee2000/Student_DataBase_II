@@ -281,10 +281,10 @@ void addStudent(StudentDatabase* studentDb) {
 		{
 			char tempUserID[100]; // To add A0 to the beginning of the string
 			strcpy(tempUserID, "A0");
-			strcpy(tempUserID, userInput);
+			strcat(tempUserID, userInput);
 			if (!strcmp(studentDb->database[i].id, tempUserID))
 			{
-				printf("Invalid student ID: student ID already exist\n");
+				printf("Invalid student ID: student ID %s already exist\n", tempUserID);
 				flag = 1;
 				break;
 			}
@@ -295,7 +295,6 @@ void addStudent(StudentDatabase* studentDb) {
 		validID = 0;
 		// If everything passes
 		strcat(studentID, userInput);
-		printf("%s\n", studentID);
 	};
 	// validate name
 	int validName = 1;
