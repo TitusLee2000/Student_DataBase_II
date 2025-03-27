@@ -105,6 +105,36 @@ char saveDatabase(const StudentDatabase* studentDb) {
  * @return 1 if loading was successful, 0 otherwise
  */
 char loadDatabase(StudentDatabase* studentDb) {
+	char path[256] = "";
+	printf("Please enter the name of the file you wish to load: ");
+	scanf("%s", path);
+
+	char validInput = 0;
+	while (!validInput) {
+		printf("Is the file a 'bin' or 'txt'?");
+		char input[8] = "";
+		scanf("%s", input);
+		if (strcmp("bin", input) == 0) {
+			strcat(path, ".bin");
+			validInput = 1;
+		} else if (strcmp("txt", input) == 0) {
+			strcat(path, ".txt");
+			validInput = 1;
+		} else {
+			printf("Invalid input!\n");
+		}
+	}
+	char filePath[512] = "../";
+	strcat(filePath, path);
+
+	FILE* checkFile = fopen(filePath, "r");
+	if (checkFile == NULL) {
+		printf("No such file exists. Aborting load...\n");
+		fclose(checkFile);
+		return 0;
+	}
+	fclose(checkFile);
+
 	FILE* fp = fopen("../records.bin", "rb");
 	if (fp == NULL) return 0;
 
