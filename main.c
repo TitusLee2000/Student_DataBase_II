@@ -483,10 +483,14 @@ void ListGroupMembers() {
 
 //Comparator functions
 
-int compareID(void* a, void* b) {
+int compareId(void* a, void* b) {
 	Student* studentA = (Student*) a;
 	Student* studentB = (Student*) b;
 	return strcmp(studentA->id, studentB->id);
+}
+
+int compareIdReverse(void* a, void* b) {
+	return -compareId(a, b);
 }
 
 int compareName(void* a, void* b)
@@ -496,7 +500,11 @@ int compareName(void* a, void* b)
 
 	return strcmp(studentA->name, studentB->name);
 }
-int compareGPA(void* a, void* b)
+int compareNameReverse(void* a, void* b) {
+	return -compareName(a, b);
+}
+
+int compareGpa(void* a, void* b)
 {
 	Student* studentA = (Student*) a;
 	Student* studentB = (Student*) b;
@@ -506,8 +514,56 @@ int compareGPA(void* a, void* b)
 	return 0;
 }
 
-void sortStudent() {
+int compareGpaReverse(void* a, void* b) {
+	return -compareGpa(a, b);
+}
 
+void sortStudent(StudentDatabase* studentDb) {
+	char sortMethod = -1;
+	do {
+		char input[256] = "";
+		printf("Please select a sorting method ('id', 'name', or 'gpa'): ");
+		scanf("%s", input);
+		if (strcmp(input, "id") == 0) {
+			sortMethod = 1;
+		} else if (strcmp(input, "name") == 0) {
+			sortMethod = 2;
+		} else if (strcmp(input, "gpa") == 0) {
+			sortMethod = 3;
+		} else {
+			printf("Invalid input.\n");
+		}
+	} while (sortMethod == -1);
+
+	char order = 0;
+	do {
+		char input[256] = "";
+		printf("Sort in ascending or descending order? ('asc' or 'desc'): ");
+		scanf("%s", input);
+		if (strcmp(input, "asc") == 0) {
+			order = 1;
+		} else if (strcmp(input, "desc") == 0) {
+			order = -1;
+		} else {
+			printf("Invalid input.\n");
+		}
+	} while (order == 0);
+
+	int (*compare) (const void*, const void*);
+
+	if (sortMethod == 1) {
+		compare = (order == 1) ? compareId : compareIdReverse;
+	} else if (sortMethod == 2) {
+		compare = (order == 1) ? compareName : compareNameReverse;
+	} else if (sortMethod == 3) {
+		compare = (order == 1) ? compareGpa : compareGpaReverse;
+	} else {
+		printf("Sorting failed.\n");
+		return;
+	}
+
+	qsort(studentDb->database, studentDb->count, sizeof(Student), compare);
+	printf("Sorting finished.\n");
 }
 
 int main() {
@@ -581,7 +637,7 @@ int main() {
 		} else if (strcmp(input, "list") == 0) {
 			printf("List is not yet implemented!\n");
 		} else if (strcmp(input, "sort") == 0) {
-			printf("Sort is not yet implemented!\n");
+			sortStudent(&studentDatabase);
 		}
 		else {
 			printf("Unrecognised command. Enter 'help' to see a list of commands.\n");
