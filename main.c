@@ -434,7 +434,9 @@ void searchStudent(StudentDatabase* studentDb) {
  */
 void deleteStudent(StudentDatabase* studentDb) {
 	// Get id from user input
-	const char targetId[] = "A01234567";
+	char targetId[10];
+	printf("Please enter the ID of the student you wish to remove:");
+	scanf("%s", targetId);
 
 	Student* targetStudent = NULL;
 	size_t index = 0;
@@ -567,6 +569,10 @@ int main() {
 			} else {
 				printf("Load failed!\n");
 			}
+		} else if (strcmp(input, "details") == 0) {
+			printf("Number of students: %llu\n", studentDatabase.count);
+			printf("Allocated memory: %llu bytes (%llu slots)\n", studentDatabase.size * sizeof(studentDatabase.database), studentDatabase.size);
+
 		}
 		else {
 			printf("Unrecognised command. Enter 'help' to see a list of commands.\n");
