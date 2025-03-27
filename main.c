@@ -39,6 +39,46 @@ typedef struct StudentDatabase
 } StudentDatabase;
 
 /**
+ * Saves a database to file.
+ *
+ * @param studentDb the database to save
+ * @return 1 if saving was successful, 0 otherwise
+ */
+char saveDatabase(const StudentDatabase* studentDb) {
+	FILE* fp = fopen("../records.bin", "wb");
+	if (fp == NULL) return 0;
+
+	fwrite(&studentDb->size, sizeof(size_t), 1, fp);
+	fwrite(&studentDb->count, sizeof(size_t), 1, fp);
+	fwrite(studentDb->database, sizeof(Student), studentDb->size, fp);
+
+	fclose(fp);
+	return 1;
+}
+/**
+ * Load a database from file.
+ *
+ * @param studentDb the database to load into
+ * @return 1 if loading was successful, 0 otherwise
+ */
+char loadDatabase(StudentDatabase* studentDb) {
+	FILE* fp = fopen("../records.bin", "rb");
+	if (fp == NULL) return 0;
+
+	fseek(fp, 0, SEEK_SET);
+	fread(&studentDb->size, sizeof(size_t), 1, fp);
+
+	fseek(fp, sizeof(size_t), SEEK_SET);
+	fread(&studentDb->count, sizeof(size_t), 1, fp);
+
+	fseek(fp, sizeof(size_t)*2, SEEK_SET);
+	fread(studentDb->database, sizeof(Student), studentDb->size, fp);
+
+	fclose(fp);
+	return 1;
+}
+
+/**
  * Attempts to increment the size of a student database.
  *
  * @param studentDb the student database to be incremented
