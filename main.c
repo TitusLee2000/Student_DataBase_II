@@ -46,7 +46,49 @@ typedef struct StudentDatabase
  * @return 1 if saving was successful, 0 otherwise
  */
 char saveDatabase(const StudentDatabase* studentDb) {
-	FILE* fp = fopen("../records.bin", "wb");
+	char path[256] = "";
+	printf("Please enter the name of the file you wish to save to: ");
+	scanf("%s", path);
+
+	char validInput = 0;
+	while (!validInput) {
+		printf("Would you like to save as a 'bin' or 'txt'?");
+		char input[8] = "";
+		scanf("%s", input);
+		if (strcmp("bin", input) == 0) {
+			strcat(path, ".bin");
+			validInput = 1;
+		} else if (strcmp("txt", input) == 0) {
+			strcat(path, ".txt");
+			validInput = 1;
+		} else {
+			printf("Invalid input!\n");
+		}
+	}
+	char filePath[512] = "../";
+	strcat(filePath, path);
+
+	FILE* checkFile = fopen(filePath, "r");
+	if (checkFile != NULL) {
+		validInput = 0;
+		while (!validInput) {
+			printf("File already exists. Would you like to overwrite file? ('y' or 'n'): ");
+			char input[8] = "";
+			scanf("%s", input);
+			if (strcmp("y", input) == 0) {
+				validInput = 1;
+			} else if (strcmp("n", input) == 0) {
+				printf("Aborting save...\n");
+				fclose(checkFile);
+				return 0;
+			} else {
+				printf("Invalid input!\n");
+			}
+		}
+	}
+	fclose(checkFile);
+
+	FILE* fp = fopen(filePath, "wb");
 	if (fp == NULL) return 0;
 
 	fwrite(&studentDb->size, sizeof(size_t), 1, fp);
