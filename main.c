@@ -135,7 +135,7 @@ char loadDatabase(StudentDatabase* studentDb) {
 	}
 	fclose(checkFile);
 
-	FILE* fp = fopen("../records.bin", "rb");
+	FILE* fp = fopen(filePath, "rb");
 	if (fp == NULL) return 0;
 
 	fseek(fp, 0, SEEK_SET);
