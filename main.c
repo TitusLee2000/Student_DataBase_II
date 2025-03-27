@@ -576,6 +576,10 @@ int main() {
 		} else if (strcmp(input, "help") == 0) {
 			printf ("Valid commands:\n");
 			printf ("add, display, search, delete, list, sort, save, load, details, exit\n");
+		} else if (strcmp(input, "list") == 0) {
+			printf("List is not yet implemented!\n");
+		} else if (strcmp(input, "sort") == 0) {
+			printf("Sort is not yet implemented!\n");
 		}
 		else {
 			printf("Unrecognised command. Enter 'help' to see a list of commands.\n");
