@@ -1,6 +1,7 @@
 // By Titus and David
 // BCIT 2025
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +22,7 @@ typedef enum Group {
  */
 typedef struct Student {
 	char id[10];		// Student's BCIT ID
-	char name[256];		// Student's legal name
+	char name[255];		// Student's legal name
 	int age;			// Student's age
 	char program[128];	// Student's program
 	float gpa;			// Student's grade point average
@@ -168,113 +169,187 @@ void printStudent(const Student* student, const int padding[])
 	const char* groupName = (student->group == DOWNTOWN) ? "Downtown" : "Burnaby";
 	printf("| %-*s | %-*s | %-*d | %-*s | %-.2f | %-*s |\n", padding[0], student->id, padding[1], student->name, padding[2], student->age, padding[3], student->program, student->gpa, padding[5], groupName);
 }
-
-/**
- * Create a unique student number
- *
- * @param currentNumber an int pointer of the newest made student number without leading zero's
- * @return a char pointer to a new student number or NULL if over 99999999
- */
-char* generateStudentNumber(const int* currentNumber) {
-	// Over the limit
-	if (*currentNumber > 99999999) {
-		return NULL;
-	}
-	const int studentIDLength = 9;				// change if you want to go over 9 digit
-	const int width = studentIDLength - 1;
-	char* newNumber = (char*)malloc(studentIDLength);
-	int count = 0;
-	char strStudentNumber[studentIDLength];
-	sprintf(strStudentNumber, "%d", *currentNumber+1);	// ending with student number
-	strcat(newNumber, "A");				// starting with 'A'
-	while (width-strlen(strStudentNumber) > count) {
-		strcat(newNumber, "0");			// 0 as fillers
-		count++;
-	}
-	strcat(newNumber, strStudentNumber);
-	return newNumber;
-}
 /**
  * Add a student to the database.
  *
  * @param studentDb the database to add to
  */
 void addStudent(StudentDatabase* studentDb) {
-	Student newStudent = {"A01234567", "Example Student", 22, "CST", 3.333, DOWNTOWN};
+	//=====================================
+	//        PROMPT AND VALIDATE
+	//=====================================
 
-    //prompt and retrieve user input
-
-	//=========================
-	//       VALIDATION
-	//=========================
-
-	// validate ID
-	char userInput[20]; // for all inputs
+	char userInput[255];		// for all inputs
+	char studentID [10] = "A0";		// Student's ID
+	char studentName [255];		// Student's name
+	int studentAge;				// Student's age
+	char studentProgram[128];	// Student's program
+	float studentGpa;			// Student's grade point average
+	Group studentGroup;			// Student's group
 
 	int validID = 1;
+	// validate ID
 	while (validID) {
-		printf("Student ID must be in the format of A12345678");
-		printf("Enter Student ID: ");
+		printf("Enter Student ID by number [7 digits]:\n");
 		scanf("%s", &userInput);
 
-		char strNumber[8];
-		strncpy(strNumber, userInput + 1, 8); // substring [1-8]
-		char* end;
-		int number = strtol(strNumber, &end, 10); // convert str to int | Needed to enter to DB
-		if (userInput[0] != 'A') {
-			printf("Invalid student ID: Must begin with A");
+		char* stringPtr; //String portion of the input
+		strtol(userInput, &stringPtr, 10);
+		if (*stringPtr != '\0') {
+			printf("Invalid student ID: ID must be numerical\n");
 			continue;
 		}
-		if (strlen(userInput) != 9) {
-			printf("Invalid student ID: Must be length 9");
+		if (strlen(userInput) != 7) {
+			printf("Invalid student ID: Must be length 7\n");
 			continue;
 		}
-		if (end != NULL) {
-			printf("Invalid student ID: Student ID must only be numerical after A");
+		//check uniqueness
+		int flag = 0;
+		for (size_t i = 0; i < studentDb->count; i++)
+		{
+			char tempUserID[100]; // To add A0 to the beginning of the string
+			strcpy(tempUserID, "A0");
+			strcpy(tempUserID, userInput);
+			if (!strcmp(studentDb->database[i].id, tempUserID))
+			{
+				printf("Invalid student ID: student ID already exist\n");
+				flag = 1;
+				break;
+			}
+		}
+		if (flag) { // if the number already exist
 			continue;
 		}
 		validID = 0;
+		// If everything passes
+		strcat(studentID, userInput);
+		printf("%s\n", studentID);
 	};
 	// validate name
 	int validName = 1;
 	while (validName) {
-		printf("Enter Student Name: ");
+		printf("Enter Student Name:\n");
 		scanf("%s", &userInput);
-		//Validation code {...}
+		char* stringPtr; //String portion of the input
+		strtol(userInput, &stringPtr, 10);
+		if (strlen(userInput) > 255 || strlen(userInput) == 0) { //out of bound
+			printf("Invalid student Name: length must be less than 256\n");
+			continue;
+		}
+		int flag = 0;
+		for (int i = 0; userInput[i] != '\0'; i++) {
+			if (!isalpha(userInput[i])) {
+				printf("Invalid student Name: Name must only contain alphabetical characters\n");
+				flag = 1;
+				break;
+			}
+		}
+		if (flag) { // reset question if student name contains integer
+			continue;
+		}
+		if (*stringPtr == '\0') {
+			printf("Invalid student Name: Name must only contain alphabetical characters\n");
+		}
 		validName = 0;
+		strcpy(studentName, userInput);
 	}
 	// validate age
 	int validAge = 1;
 	while (validAge) {
-		printf("Enter Student Age: ");
+		printf("Enter Student Age:\n");
 		scanf("%s", &userInput);
-		//Validation code {...}
+		char* stringPtr; //String portion of the input
+		int number = strtol(userInput, &stringPtr, 10);
+		if (*stringPtr != '\0') {
+			printf("Invalid student Age: Age must be numeric\n");
+			continue;
+		}
+		if (number < 18) {
+			printf("Invalid student Age: Age must be greater than 18\n");
+			continue;
+		}
 		validAge = 0;
+		studentAge = userInput;
 	}
 	// validate program
 	int validProgram = 1;
 	while (validProgram) {
-		printf("Enter Student Program: ");
+		printf("Enter Student Program:\n");
 		scanf("%s", &userInput);
-		//Validation code {...}
+		char* stringPtr; //String portion of the input
+		strtol(userInput, &stringPtr, 10);
+		int flag = 0;
+		for (int i = 0; i < strlen(userInput); i++) {
+			if (!isalpha(userInput[i])) {
+				printf("Invalid student Program: Program can only contain alphabetical characters\n");
+				flag = 1;
+				break;
+			}
+		}
+		if (flag) { // the program contained anything other than alphabetical characters
+			continue;
+		}
 		validProgram = 0;
+		strcpy(studentProgram, userInput);
 	}
 	// validate GPA
 	int validGPA = 1;
 	while (validGPA) {
-		printf("Enter Student GPA: ");
+		printf("Enter Student GPA between [0.0 - 5.0]:\n");
 		scanf("%s", &userInput);
-		//Validation code {...}
+		char* stringPtr; //String portion of the input
+		double gpaValue = strtod(userInput, &stringPtr);
+		if (*stringPtr != '\0') { // has other characters than alphabet
+			printf("Invalid student GPA: GPA must be a double\n");
+			continue;
+		}
+		if (gpaValue <= 0.0 || gpaValue >= 5.0) {
+			printf("Invalid student GPA: GPA range must be be between 0.0 to 5.0\n");
+			continue;
+		}
 		validGPA = 0;
+		studentGpa = gpaValue;
 	}
 	// validate Group
 	int validGroup = 1;
 	while (validGroup) {
-		printf("Enter Student Group: ");
+        printf("[D]-Downtown [B]-Burnaby\n");
+		printf("Enter Student Group ['D', 'B']:\n");
 		scanf("%s", &userInput);
-		//Validation code {...}
+		char* stringPtr; //String portion of the input
+		strtol(userInput, &stringPtr, 10);
+		int flag = 0;
+		for (int i = 0; i < strlen(userInput); i++) {
+			if (!isalpha(userInput[i])) {
+				printf("Invalid student Program: Program can only contain alphabetical characters\n");
+				flag = 1;
+				break;
+			}
+		}
+		if (flag) { // the program contained anything other than alphabetical characters
+			continue;
+		}
+		if (toupper(*stringPtr) == 'D') {
+			studentGroup = DOWNTOWN;
+		} else if (toupper(*stringPtr) == 'B') {
+			studentGroup = BURNABY;
+		} else {
+			printf("Invalid student Group: Group must be 'D' or 'B'\n");
+			continue;
+		}
 		validGroup = 0;
 	}
+	// Create a new student after passing all validations
+	Student newStudent = {studentID, studentName, studentAge,
+		studentProgram, studentGpa, studentGroup};
+
+	// DEBUGGING PRINTS [DELETE AFTER]
+	printf("%s\n", newStudent.id);
+	printf("%s\n", newStudent.name);
+	printf("%d\n", newStudent.age);
+	printf("%s\n", newStudent.program);
+	printf("%f\n", newStudent.gpa);
+	printf("%p\n", &newStudent.group);
 
     // Check capacity of database and increase size if needed
 	if (studentDb->count >= studentDb->size) {
