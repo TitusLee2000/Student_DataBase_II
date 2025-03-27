@@ -514,15 +514,65 @@ int main() {
 	studentDatabase.count = 0;
 
 	// Demo
-	displayStudents(&studentDatabase);
+	char quit = 0;
+	while (!quit) {
+		char input[256] = "";
+		printf("Enter a command or 'help'\n");
+		scanf("%s", input);
 
-	addStudent(&studentDatabase);
-	displayStudents(&studentDatabase);
-	searchStudent(&studentDatabase);
-
-	deleteStudent(&studentDatabase);
-	displayStudents(&studentDatabase);
-	searchStudent(&studentDatabase);
+		if (strcmp(input, "exit") == 0) {
+			char loop = 1;
+			while (loop) {
+				loop = 0;
+				printf("Save database before exiting? ('y'|'n'|'cancel')\n");
+				scanf("%s", input);
+				if (strcmp(input, "y") == 0) {
+					printf("Saving database...\n");
+					if (saveDatabase(&studentDatabase)) {
+						quit = 1;
+						printf("Exiting...\n");
+					} else {
+						printf("Save failed.\n");
+						loop = 1;
+					}
+				} else if (strcmp(input, "n") == 0) {
+					printf("Exiting without saving...\n");
+					quit = 1;
+				} else if (strcmp(input, "cancel") == 0) {
+					printf("Exit canceled.\n");
+				} else {
+					printf("Unrecognised command.\n");
+					loop = 1;
+				}
+			}
+		} else if (strcmp(input, "add") == 0) {
+			addStudent(&studentDatabase);
+		} else if (strcmp(input, "display") == 0) {
+			displayStudents(&studentDatabase);
+		} else if (strcmp(input, "delete") == 0) {
+			deleteStudent(&studentDatabase);
+		} else if (strcmp(input, "search") == 0) {
+			searchStudent(&studentDatabase);
+		} else if (strcmp(input, "save") == 0) {
+			printf("Saving database...\n");
+			if (saveDatabase(&studentDatabase)) {
+				printf("Saved successfully\n");
+			} else {
+				printf("Save failed!\n");
+			}
+		} else if (strcmp(input, "load") == 0) {
+			printf("Loading database...\n");
+			if (loadDatabase(&studentDatabase)) {
+				printf("Loaded successfully\n");
+			} else {
+				printf("Load failed!\n");
+			}
+		}
+		else {
+			printf("Unrecognised command. Enter 'help' to see a list of commands.\n");
+		}
+		printf("\n\n___________________________\n");
+	}
 
 	// Free memory
 	free(studentDatabase.database);
