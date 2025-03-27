@@ -23,7 +23,7 @@ Exit – Close the application.
 Data persistence  – Command line argument for the file name to store data.
 ### Console Menu Items:
 
-- [ ] **Add Student** – Prompt for name, ID, age, program, GPA, and group (BBY or DTC), then store the record.
+- [x] **Add Student** – Prompt for name, ID, age, program, GPA, and group (BBY or DTC), then store the record.
 
 - [ ] **Display All Students** – Show all student records, categorized by Group BBY and Group DTC.
 

@@ -484,8 +484,9 @@ void displayStudents(const StudentDatabase* studentDb) {
 void searchStudent(StudentDatabase* studentDb) {
 	// Get id from user input
 	char targetId[10];
-	printf("Please enter the ID of the student you wish to remove: ");
+	printf("Please enter the ID of the student you wish to find: ");
 	scanf("%s", targetId);
+	targetId[0] = toupper(targetId[0]);
 
 	for (size_t i = 0; i < studentDb->count; i++)
 	{
