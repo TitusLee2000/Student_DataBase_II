@@ -513,7 +513,7 @@ void deleteStudent(StudentDatabase* studentDb) {
 	char targetId[10];
 	printf("Please enter the ID of the student you wish to remove: ");
 	scanf("%s", targetId);
-
+	targetId[0] = toupper(targetId[0]);
 	Student* targetStudent = NULL;
 	size_t index = 0;
 
@@ -549,10 +549,6 @@ void deleteStudent(StudentDatabase* studentDb) {
 	}
 
 	printf("Student with ID %s deleted from database\n", targetId);
-}
-
-void ListGroupMembers() {
-
 }
 
 //Comparator functions
