@@ -410,7 +410,9 @@ void displayStudents(const StudentDatabase* studentDb) {
  */
 void searchStudent(StudentDatabase* studentDb) {
 	// Get id from user input
-	const char targetId[10] = "A01234567";
+	char targetId[10];
+	printf("Please enter the ID of the student you wish to remove: ");
+	scanf("%s", targetId);
 
 	for (size_t i = 0; i < studentDb->count; i++)
 	{
@@ -435,7 +437,7 @@ void searchStudent(StudentDatabase* studentDb) {
 void deleteStudent(StudentDatabase* studentDb) {
 	// Get id from user input
 	char targetId[10];
-	printf("Please enter the ID of the student you wish to remove:");
+	printf("Please enter the ID of the student you wish to remove: ");
 	scanf("%s", targetId);
 
 	Student* targetStudent = NULL;
