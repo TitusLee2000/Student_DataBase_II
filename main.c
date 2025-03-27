@@ -22,7 +22,7 @@ typedef enum Group {
  */
 typedef struct Student {
 	char id[10];		// Student's BCIT ID
-	char name[255];		// Student's legal name
+	char name[256];		// Student's legal name
 	int age;			// Student's age
 	char program[128];	// Student's program
 	float gpa;			// Student's grade point average
@@ -181,7 +181,7 @@ void addStudent(StudentDatabase* studentDb) {
 
 	char userInput[255];		// for all inputs
 	char studentID [10] = "A0";		// Student's ID
-	char studentName [255];		// Student's name
+	char studentName [256];		// Student's name
 	int studentAge;				// Student's age
 	char studentProgram[128];	// Student's program
 	float studentGpa;			// Student's grade point average
@@ -269,7 +269,7 @@ void addStudent(StudentDatabase* studentDb) {
 			continue;
 		}
 		validAge = 0;
-		studentAge = userInput;
+		studentAge = number;
 	}
 	// validate program
 	int validProgram = 1;
@@ -340,8 +340,15 @@ void addStudent(StudentDatabase* studentDb) {
 		validGroup = 0;
 	}
 	// Create a new student after passing all validations
-	Student newStudent = {studentID, studentName, studentAge,
-		studentProgram, studentGpa, studentGroup};
+	// Student newStudent; = {{studentID}, {studentName}, studentAge,
+	// 	{studentProgram}, studentGpa, studentGroup};'
+	Student newStudent;
+	strcpy(newStudent.id, studentID);
+	strcpy(newStudent.name, studentName);
+	newStudent.age = studentAge;
+	strcpy(newStudent.program, studentProgram);
+	newStudent.gpa = studentGpa;
+	newStudent.group = studentGroup;
 
 	// DEBUGGING PRINTS [DELETE AFTER]
 	printf("%s\n", newStudent.id);
