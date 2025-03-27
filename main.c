@@ -568,6 +568,11 @@ void sortStudent(StudentDatabase* studentDb) {
 	printf("Sorting finished.\n");
 }
 
+/**
+ * List students by group.
+ *
+ * @param studentDb student database to list from
+ */
 void listStudents(StudentDatabase* studentDb) {
 	Group studentGroup;
 
