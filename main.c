@@ -346,15 +346,19 @@ void addStudent(StudentDatabase* studentDb) {
 	int validProgram = 1;
 	while (validProgram) {
 		printf("Enter Student Program:\n");
-		scanf("%s", &userInput);
-		char* stringPtr; //String portion of the input
-		strtol(userInput, &stringPtr, 10);
+		char dummy;
+		scanf("%c", &dummy);
+		fgets(userInput, sizeof(userInput), stdin);
+		printf(userInput);
 		int flag = 0;
 		for (int i = 0; i < strlen(userInput); i++) {
-			if (!isalpha(userInput[i])) {
+			if (userInput[i] != ' ' && !isalpha(userInput[i]) && !userInput[i] != '\0') {
 				printf("Invalid student Program: Program can only contain alphabetical characters\n");
 				flag = 1;
 				break;
+			}
+			if (userInput[i] == '\n' || userInput[i] == '\r') {
+				userInput[i] = '\0';
 			}
 		}
 		if (flag) { // the program contained anything other than alphabetical characters
@@ -436,14 +440,6 @@ void addStudent(StudentDatabase* studentDb) {
 	strcpy(newStudent.program, studentProgram);
 	newStudent.gpa = studentGpa;
 	newStudent.group = studentGroup;
-
-	// DEBUGGING PRINTS [DELETE AFTER]
-	printf("%s\n", newStudent.id);
-	printf("%s\n", newStudent.name);
-	printf("%d\n", newStudent.age);
-	printf("%s\n", newStudent.program);
-	printf("%f\n", newStudent.gpa);
-	printf("%p\n", &newStudent.group);
 
 	studentDb->database[index] = newStudent;
 }

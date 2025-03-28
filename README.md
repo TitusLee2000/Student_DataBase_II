@@ -25,11 +25,11 @@ Data persistence  – Command line argument for the file name to store data.
 
 - [x] **Add Student** – Prompt for name, ID, age, program, GPA, and group (BBY or DTC), then store the record.
 
-- [ ] **Display All Students** – Show all student records, categorized by Group BBY and Group DTC.
+- [x] **Display All Students** – Show all student records, categorized by Group BBY and Group DTC.
 
-- [ ] **Search Student by ID** – Prompt for student ID, search the records, and display details if found.
+- [x] **Search Student by ID** – Prompt for student ID, search the records, and display details if found.
 
-- [ ] **Delete Student by ID** – Prompt for student ID, search, and remove the record if found.
+- [x] **Delete Student by ID** – Prompt for student ID, search, and remove the record if found.
 
 - [ ] **List Students by Group** – Prompt for group (B - BBY or D - DTC) and display all students in that group.
 
