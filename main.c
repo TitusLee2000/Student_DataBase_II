@@ -40,6 +40,28 @@ typedef struct StudentDatabase
 } StudentDatabase;
 
 /**
+ * Converts a string to lowercase.
+ *
+ * @param s the string to convert
+ */
+void strToLower(char* s) {
+	for (int i = 0; i < strlen(s); i++) {
+		s[i] = (char) tolower(s[i]);
+	}
+}
+
+/**
+ * Converts a string to uppercase.
+ *
+ * @param s the string to convert
+ */
+void strToUpper(char* s) {
+	for (int i = 0; i < strlen(s); i++) {
+		s[i] = (char) toupper(s[i]);
+	}
+}
+
+/**
  * Saves a database to file.
  *
  * @param studentDb the database to save
