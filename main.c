@@ -558,13 +558,22 @@ void displayStudents(const StudentDatabase* studentDb) {
 	makePadding(studentDb, padding, 10);
 
 	// Print table labels
-	printf("\n| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "ID", padding[1], "NAME", padding[2], "AGE", padding[3], "PROGRAM", padding[4], "GPA", padding[5], "GROUP");
-	printf("| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "", padding[1], "", padding[2], "", padding[3], "", padding[4], "", padding[5], "");
+	printLabels(padding);
 
-	// Print each student
+	// Print Downtown students
 	for (size_t i = 0; i < studentDb->count; i++)
 	{
-		printStudent(&studentDb->database[i], padding);
+		if (studentDb->database[i].group == DOWNTOWN) {
+			printStudent(&studentDb->database[i], padding);
+		}
+	}
+
+	// Print Burnaby students
+	for (size_t i = 0; i < studentDb->count; i++)
+	{
+		if (studentDb->database[i].group == BURNABY) {
+			printStudent(&studentDb->database[i], padding);
+		}
 	}
 	printf("\n");
 }
