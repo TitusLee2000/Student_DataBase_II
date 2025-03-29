@@ -31,9 +31,9 @@ Data persistence  – Command line argument for the file name to store data.
 
 - [x] **Delete Student by ID** – Prompt for student ID, search, and remove the record if found.
 
-- [ ] **List Students by Group** – Prompt for group (B - BBY or D - DTC) and display all students in that group.
+- [x] **List Students by Group** – Prompt for group (B - BBY or D - DTC) and display all students in that group.
 
-- [ ] **Sort Students** – Sort all student records by user's choice of key and order.
+- [x] **Sort Students** – Sort all student records by user's choice of key and order.
   Provide a submenu for:
 
 - selecting the sorting key: ID, name, or GPA.
@@ -44,13 +44,13 @@ The sorted order will NOT persist after the program is restarted.
 Exit Application – Terminate the program.*
 
 ### Technical Requirements:
-- [ ] Implement using the C programming language.
+- [x] Implement using the C programming language.
 
-- [ ] Use struct and arrays to store student information for both groups.
+- [x] Use struct and arrays to store student information for both groups.
 
-- [ ] Provide a simple menu-driven interface using printf and scanf.
+- [x] Provide a simple menu-driven interface using printf and scanf.
 
-- [ ] Ensure proper input validation and error handling.
+- [x] Ensure proper input validation and error handling.
 
 ### Constraints:
 
