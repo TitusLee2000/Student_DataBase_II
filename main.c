@@ -583,12 +583,16 @@ void displayStudents(const StudentDatabase* studentDb) {
  *
  * @param studentDb the database to search
  */
-void searchStudent(StudentDatabase* studentDb) {
+void searchStudent(const StudentDatabase* studentDb) {
 	// Get id from user input
-	char targetId[10];
+	char input[256] = "";
 	printf("Please enter the ID of the student you wish to find: ");
-	scanf("%s", targetId);
-	targetId[0] = toupper(targetId[0]);
+	scanf(" %255[^\n]s ", input);
+
+	input[9] = '\0';
+	char targetId[10];
+	strcpy(targetId, input);
+	targetId[0] = (char) toupper(targetId[0]);
 
 	for (size_t i = 0; i < studentDb->count; i++)
 	{
@@ -596,8 +600,8 @@ void searchStudent(StudentDatabase* studentDb) {
 		{
 			int padding[10] = {0};
 			makePadding(studentDb, padding, 10);
+			printLabels(padding);
 			printStudent(&studentDb->database[i], padding);
-
 			return;
 		}
 	}
