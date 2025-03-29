@@ -699,14 +699,6 @@ int compareGpaReverse(void* a, void* b) {
 	return -compareGpa(a, b);
 }
 
-int compareGroup(void* a, void* b) {
-	Student* studentA = (Student*) a;
-	Student* studentB = (Student*) b;
-	if (studentA->group < studentB->group) {return 1;}
-	if (studentA->group > studentB->group) {return -1;}
-	return 0;
-}
-
 /**
  * Sorts entries in a database.
  *
