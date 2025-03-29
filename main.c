@@ -616,10 +616,15 @@ void searchStudent(const StudentDatabase* studentDb) {
  */
 void deleteStudent(StudentDatabase* studentDb) {
 	// Get id from user input
+	char input[256] = "";
+	printf("Please enter the ID of the student you wish to delete: ");
+	scanf(" %255[^\n]s ", input);
+
+	input[9] = '\0';
 	char targetId[10];
-	printf("Please enter the ID of the student you wish to remove: ");
-	scanf("%s", targetId);
-	targetId[0] = toupper(targetId[0]);
+	strcpy(targetId, input);
+	targetId[0] = (char) toupper(targetId[0]);
+
 	Student* targetStudent = NULL;
 	size_t index = 0;
 
