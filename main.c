@@ -700,6 +700,12 @@ int compareGpaReverse(void* a, void* b) {
 }
 
 void sortStudent(StudentDatabase* studentDb) {
+/**
+ * Sorts entries in a database.
+ *
+ * @param studentDb the database to sort
+ */
+void sortStudent(const StudentDatabase* studentDb) {
 	char sortMethod = -1;
 	do {
 		char input[256] = "";
