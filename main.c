@@ -699,7 +699,14 @@ int compareGpaReverse(void* a, void* b) {
 	return -compareGpa(a, b);
 }
 
-void sortStudent(StudentDatabase* studentDb) {
+int compareGroup(void* a, void* b) {
+	Student* studentA = (Student*) a;
+	Student* studentB = (Student*) b;
+	if (studentA->group < studentB->group) {return 1;}
+	if (studentA->group > studentB->group) {return -1;}
+	return 0;
+}
+
 /**
  * Sorts entries in a database.
  *
@@ -758,8 +765,8 @@ void sortStudent(const StudentDatabase* studentDb) {
  *
  * @param studentDb student database to list from
  */
-void listStudents(StudentDatabase* studentDb) {
-	Group studentGroup;
+void listStudents(const StudentDatabase* studentDb) {
+	Group studentGroup = {};
 
 	char validInput = 0;
 	while (!validInput) {
@@ -768,11 +775,11 @@ void listStudents(StudentDatabase* studentDb) {
 		scanf("%s", input);
 		if (strcmp(input, "B") == 0 || strcmp(input, "b") == 0) {
 			studentGroup = BURNABY;
-			printf("\nBurnaby:\n");
+			printf("Burnaby:");
 			validInput = 1;
 		} else if (strcmp(input, "D") == 0 || strcmp(input, "d") == 0) {
 			studentGroup = DOWNTOWN;
-			printf("\nDowntown:\n");
+			printf("Downtown:");
 			validInput = 1;
 		} else {
 			printf("\nInvalid input.\n");
@@ -782,6 +789,9 @@ void listStudents(StudentDatabase* studentDb) {
 	// Create padding info
 	int padding[10] = {0};
 	makePadding(studentDb, padding, 10);
+
+	// Print table labels
+	printLabels(padding);
 
 	char num = 0;
 	for (int i = 0; i < studentDb->count; i++) {
