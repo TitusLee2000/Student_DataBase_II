@@ -140,6 +140,17 @@ char saveDatabase(const StudentDatabase* studentDb) {
 	fclose(fp);
 	return 1;
 }
+
+/**
+ * Prints table column labels.
+ *
+ * @param padding padding to use when printing
+ */
+void printLabels(int padding[10]) {
+	printf("\n| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "ID", padding[1], "NAME", padding[2], "AGE", padding[3], "PROGRAM", padding[4], "GPA", padding[5], "GROUP");
+	printf("| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n", padding[0], "", padding[1], "", padding[2], "", padding[3], "", padding[4], "", padding[5], "");
+}
+
 /**
  * Load a database from file.
  *
