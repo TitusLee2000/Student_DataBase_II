@@ -817,8 +817,9 @@ int main() {
 	char quit = 0;
 	while (!quit) {
 		char input[256] = "";
-		printf("Enter a command or 'help'\n");
-		scanf("%s", input);
+		printf("Enter a command or 'help':");
+		scanf(" %255[^\n]s ", input);
+		strToLower(input);
 
 		if (strcmp(input, "exit") == 0) {
 			char loop = 1;
@@ -826,6 +827,7 @@ int main() {
 				loop = 0;
 				printf("Save database before exiting? ('y'|'n'|'cancel')\n");
 				scanf("%s", input);
+				strToLower(input);
 				if (strcmp(input, "y") == 0) {
 					printf("Saving database...\n");
 					if (saveDatabase(&studentDatabase)) {
@@ -846,15 +848,19 @@ int main() {
 				}
 			}
 		} else if (strcmp(input, "add") == 0) {
+			printf("Add student\n\n");
 			addStudent(&studentDatabase);
 		} else if (strcmp(input, "display") == 0) {
+			printf("Display students\n\n");
 			displayStudents(&studentDatabase);
 		} else if (strcmp(input, "delete") == 0) {
+			printf("Delete students\n\n");
 			deleteStudent(&studentDatabase);
 		} else if (strcmp(input, "search") == 0) {
+			printf("Search students\n\n");
 			searchStudent(&studentDatabase);
 		} else if (strcmp(input, "save") == 0) {
-			printf("Saving database...\n");
+			printf("Saving database...\n\n");
 			if (saveDatabase(&studentDatabase)) {
 				printf("Saved successfully\n");
 			} else {
@@ -868,6 +874,7 @@ int main() {
 				printf("Load failed!\n");
 			}
 		} else if (strcmp(input, "details") == 0) {
+			printf("Database details\n");
 			printf("Number of students: %llu\n", studentDatabase.count);
 			printf("Allocated memory: %llu bytes (%llu slots)\n", studentDatabase.size * sizeof(studentDatabase.database), studentDatabase.size);
 
@@ -875,14 +882,15 @@ int main() {
 			printf ("Valid commands:\n");
 			printf ("add, display, search, delete, list, sort, save, load, details, exit\n");
 		} else if (strcmp(input, "list") == 0) {
+			printf("List students\n");
 			listStudents(&studentDatabase);
 		} else if (strcmp(input, "sort") == 0) {
+			printf("Sort students\n");
 			sortStudent(&studentDatabase);
 		}
 		else {
 			printf("Unrecognised command. Enter 'help' to see a list of commands.\n");
 		}
-		printf("\n\n___________________________\n");
 	}
 
 	// Free memory
