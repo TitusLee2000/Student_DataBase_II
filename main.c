@@ -182,11 +182,26 @@ char loadDatabase(StudentDatabase* studentDb) {
 
 	FILE* checkFile = fopen(filePath, "r");
 	if (checkFile == NULL) {
-		printf("No such file exists. Aborting load...\n");
 		fclose(checkFile);
+		printf("No such file exists. Aborting load...\n");
 		return 0;
+	} else {
+		fclose(checkFile);
+		while (1) {
+			printf("Loading data from %s. This will overwrite any existing data. Confirm? ('y' or 'n'): ", filePath);
+			char input[8] = "";
+			scanf(" %7[^\n]s ", input);
+			if (tolower(input[0]) == 'y') {
+				printf("Loading database...\n");
+				break;
+			} else if (tolower(input[0]) == 'n') {
+				printf("Load aborted.\n");
+				return 0;
+			} else {
+				printf("Invalid input!\n");
+			}
+		}
 	}
-	fclose(checkFile);
 
 	FILE* fp = fopen(filePath, "rb");
 	if (fp == NULL) return 0;
