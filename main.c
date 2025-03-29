@@ -68,47 +68,67 @@ void strToUpper(char* s) {
  * @return 1 if saving was successful, 0 otherwise
  */
 char saveDatabase(const StudentDatabase* studentDb) {
-	char path[256] = "";
-	printf("Please enter the name of the file you wish to save to: ");
-	scanf("%s", path);
+	char input[256] = "";
+	printf("Please enter the name of the file you wish to save to (excluding extension): ");
+
+	if (scanf(" %255[^\n]s ", input) != 1) {
+		printf("Error reading input\n");
+		return 0;
+	}
+	char partialPath[256] = "";
+	strcpy(partialPath, input);
 
 	char validInput = 0;
 	while (!validInput) {
-		printf("Would you like to save as a 'bin' or 'txt'?");
-		char input[8] = "";
-		scanf("%s", input);
+		printf("Would you like to save as a 'bin' or 'txt'?:");
+		scanf(" %255[^\n]s ", input);
 		if (strcmp("bin", input) == 0) {
-			strcat(path, ".bin");
+			strcat(partialPath, ".bin");
 			validInput = 1;
 		} else if (strcmp("txt", input) == 0) {
-			strcat(path, ".txt");
+			strcat(partialPath, ".txt");
 			validInput = 1;
 		} else {
 			printf("Invalid input!\n");
 		}
 	}
 	char filePath[512] = "../";
-	strcat(filePath, path);
+	strcat(filePath, partialPath);
 
 	FILE* checkFile = fopen(filePath, "r");
 	if (checkFile != NULL) {
+		fclose(checkFile);
 		validInput = 0;
 		while (!validInput) {
 			printf("File already exists. Would you like to overwrite file? ('y' or 'n'): ");
-			char input[8] = "";
-			scanf("%s", input);
+			scanf(" %255[^\n]s ", input);
 			if (strcmp("y", input) == 0) {
 				validInput = 1;
 			} else if (strcmp("n", input) == 0) {
-				printf("Aborting save...\n");
-				fclose(checkFile);
+				printf("Save aborted.\n");
 				return 0;
 			} else {
 				printf("Invalid input!\n");
 			}
 		}
+	} else {
+		while (1) {
+			printf("Will save data to %s. Is this correct? ('y' or 'n'): ", filePath);
+
+			scanf(" %255[^\n]s ", input);
+
+			if (tolower(input[0]) == 'n') {
+				printf("Save aborted.\n");
+				return 0;
+			} else if (tolower(input[0]) == 'y') {
+				break;
+			} else {
+				printf("Invalid input!\n");
+			}
+		}
 	}
-	fclose(checkFile);
+
+
 
 	FILE* fp = fopen(filePath, "wb");
 	if (fp == NULL) return 0;
