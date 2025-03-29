@@ -280,6 +280,13 @@ char decrementDatabase(StudentDatabase* studentDb)
  */
 void makePadding(const StudentDatabase* studentDb, int padding[], const size_t pSize)
 {
+	padding[0] = strlen("ID");
+	padding[1] = strlen("NAME");
+	padding[2] = strlen("AGE");
+	padding[3] = strlen("PROGRAM");
+	padding[4] = strlen("0.00");
+	padding[5] = strlen("GROUP");
+
 	for (size_t i = 0; i < studentDb->count; i++)
 	{
 		const Student* student = &studentDb->database[i];
@@ -296,6 +303,20 @@ void makePadding(const StudentDatabase* studentDb, int padding[], const size_t p
 	{
 		padding[i]++;
 	}
+		if (strlen(student->id) > padding[0]) {padding[0] = (int) strlen(student->id);}
+		if (strlen(student->name) > padding[1]) {padding[1] = (int) strlen(student->name);}
+		if (strlen(student->program) > padding[3]) {padding[3] = (int) strlen(student->program);}
+		if (student->age > 999) {
+			int temp = student->age;
+			int newAgePad = 0;
+			while (temp > 0) {
+				temp /= 10;
+				newAgePad++;
+			}
+			if (newAgePad > padding[2]) {padding[2] = newAgePad;}
+		}
+	}
+	padding[5] = strlen("DOWNTOWN");
 }
 
 /**
